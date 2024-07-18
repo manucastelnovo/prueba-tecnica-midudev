@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react'
 import './App.css'
-import { getRandomFact } from './services/facts'
 import { useCatImage } from './hooks/useCatImage'
+import { useCatFact } from './hooks/useCatFact'
 
 
 // const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`
+
+
 function App() {
 
-  const [fact, setFact] = useState<string>('')
+  const { fact, refreshFact } = useCatFact()
   const { imageUrl } = useCatImage({ fact })
-  useEffect(() => { getRandomFact().then(newFact => setFact(newFact)) }, [])
+
+
+
   const handleClick = async () => {
-    const newFact = await getRandomFact()
-    setFact(newFact)
+    refreshFact()
   }
 
   return (
